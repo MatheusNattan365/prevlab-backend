@@ -1,18 +1,23 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 interface UserProps extends Document {
-  name: string;
+  name?: string;
   email: string;
+  password: string;
   isAdmin: boolean;
-  convenios: string[];
+  convenios?: string[];
 }
 
 const UserSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    default: "User",
   },
   email: {
+    type: String,
+    required: true,
+  },
+  password: {
     type: String,
     required: true,
   },
