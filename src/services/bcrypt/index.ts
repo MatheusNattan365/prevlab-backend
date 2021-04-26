@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-class Bcrypt {
+export class Bcrypt {
   static async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, 10).then((hash) => hash);
   }
@@ -13,5 +13,3 @@ class Bcrypt {
       .then((result) => result);
   }
 }
-
-export { Bcrypt };

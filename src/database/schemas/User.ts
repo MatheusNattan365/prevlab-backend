@@ -1,11 +1,10 @@
 import { Document, Model, model, Schema } from "mongoose";
 
-interface UserProps extends Document {
+export interface UserProps extends Document {
   name?: string;
   email: string;
   password: string;
-  isAdmin: boolean;
-  convenios?: string[];
+  isAdmin?: boolean;
 }
 
 const UserSchema = new Schema({
@@ -24,9 +23,6 @@ const UserSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false,
-  },
-  convenios: {
-    type: [String],
   },
 });
 
