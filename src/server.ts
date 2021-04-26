@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { db } from "./database";
 import { routes } from "./routes";
-// require("dotenv").config();
 import { config as dotenvConfig } from "dotenv";
 const app = express();
 const PORT = process.env.NODE_ENV_PORT || 3000;
