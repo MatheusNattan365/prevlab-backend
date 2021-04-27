@@ -1,11 +1,12 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface UserProps extends Document {
-  name?: string;
-  email: string;
-  password: string;
-  isAdmin?: boolean;
-  convenios?: string[];
+  name?: String;
+  email: String;
+  password: String;
+  isAdmin?: Boolean;
+  convenios?: String[];
+  allowedDate?: Date;
 }
 
 const UserSchema = new Schema({
@@ -27,6 +28,9 @@ const UserSchema = new Schema({
   },
   convenios: {
     type: [String],
+  },
+  allowedDate: {
+    type: Date,
   },
 });
 

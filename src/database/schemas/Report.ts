@@ -1,14 +1,12 @@
 import { Document, Model, model, Schema } from "mongoose";
 
-export interface LabProps extends Document {
+export interface ReportProps extends Document {
   id: String;
   pacient_id: String;
   exam_id: String;
-  solicitante: String;
-  allowed: Boolean;
 }
 
-const LabSchema = new Schema({
+const ReportSchema = new Schema({
   id: {
     type: String,
   },
@@ -18,13 +16,6 @@ const LabSchema = new Schema({
   exam_id: {
     type: String,
   },
-  solicitante: {
-    type: String,
-  },
-  allowed: {
-    type: String,
-    default: false,
-  },
 });
 
-export const Lab: Model<LabProps> = model("Lab", LabSchema);
+export const Lab: Model<ReportProps> = model("Report", ReportSchema);
