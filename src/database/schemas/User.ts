@@ -5,6 +5,7 @@ export interface UserProps extends Document {
   email: string;
   password: string;
   isAdmin?: boolean;
+  convenios?: string[];
 }
 
 const UserSchema = new Schema({
@@ -23,6 +24,9 @@ const UserSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false,
+  },
+  convenios: {
+    type: [String],
   },
 });
 
