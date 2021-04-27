@@ -1,15 +1,11 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface ReportProps extends Document {
-  id: String;
-  pacient_id: String;
-  exam_id: String;
+  pacient_id: string;
+  exam_id: string;
 }
 
 const ReportSchema = new Schema({
-  id: {
-    type: String,
-  },
   pacient_id: {
     type: String,
   },

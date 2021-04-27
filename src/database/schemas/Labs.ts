@@ -1,16 +1,21 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface LabProps extends Document {
-  name: String;
+  name: string;
+  cnpj?: string;
+  phone?: string[];
 }
 
 const LabSchema = new Schema({
-  id: {
-    type: String,
-  },
   name: {
     type: String,
-    default: "User",
+    required: true,
+  },
+  cnpj: {
+    type: String,
+  },
+  phone: {
+    type: [String],
   },
 });
 

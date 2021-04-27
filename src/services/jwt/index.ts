@@ -4,12 +4,11 @@ import { UserProps } from "../../database/schemas/User";
 export class Jwt {
   static succededLoginTokwt(obj: UserProps): string {
     return jwt.sign({ ...obj }, process.env.NODE_ENV_JWT_PRIVATE_KEY, {
-      expiresIn: "10s",
+      expiresIn: "1h",
     });
   }
-  static decodeUser(token: string): boolean {
-    const isValid = jwt.verify(token, process.env.NODE_ENV_JWT_PRIVATE_KEY);
-    if (!isValid) return false;
-    return true;
+  static chechekJWT(token: string): string | object {
+    const decode = jwt.verify(token, process.env.NODE_ENV_JWT_PRIVATE_KEY);
+    return decode;
   }
 }

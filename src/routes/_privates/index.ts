@@ -1,10 +1,10 @@
 import { Router, Request, Response } from "express";
 import { adminRoutes } from "./admin/adminRoutes";
 import { appRoutes } from "./application/appRoutes";
-import { decodeJwtMiddleware } from "../../middlewares/decodeJwtMiddleware";
+import { userIsLoggedInMiddleware } from "../../middlewares/userIsLoggedInMiddleware";
 const privateRoutes = Router();
 
-privateRoutes.use(decodeJwtMiddleware);
+privateRoutes.use(userIsLoggedInMiddleware);
 
 privateRoutes.use("/admin", adminRoutes);
 privateRoutes.use("/app", appRoutes);

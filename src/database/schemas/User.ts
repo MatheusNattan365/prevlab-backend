@@ -1,11 +1,11 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface UserProps extends Document {
-  name?: String;
-  email: String;
-  password: String;
-  isAdmin?: Boolean;
-  convenios?: String[];
+  name?: string;
+  email: string;
+  password: string;
+  isAdmin?: boolean;
+  convenios?: string[];
   allowedDate?: Date;
 }
 

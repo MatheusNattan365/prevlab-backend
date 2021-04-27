@@ -1,24 +1,22 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface ExamProps extends Document {
-  id: String;
-  pacient_id: String;
+  pacient_id: string;
   collectDate: Date;
-  avaliacaoDaAmostra?: String;
-  celulaNaoEpiteliais?: String;
-  descamacaoDominante?: String;
-  alteracoesCelulares?: String;
-  celulasMetaplasicas?: String;
-  celulasEndocervicais?: String;
-  celulasEndometriais?: String;
-  floraVaginal?: String;
-  citolise?: String;
-  conclusao: String;
-  observacoes?: String;
+  avaliacaoDaAmostra?: string;
+  celulaNaoEpiteliais?: string;
+  descamacaoDominante?: string;
+  alteracoesCelulares?: string;
+  celulasMetaplasicas?: string;
+  celulasEndocervicais?: string;
+  celulasEndometriais?: string;
+  floraVaginal?: string;
+  citolise?: string;
+  conclusao: string;
+  observacoes?: string;
 }
 
 const ExamSchema = new Schema({
-  id: { type: String },
   pacient_id: {
     type: String,
   },
