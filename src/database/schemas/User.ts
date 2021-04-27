@@ -30,6 +30,4 @@ const UserSchema = new Schema({
   },
 });
 
-const User: Model<UserProps> = model("User", UserSchema);
-
-export { User };
+export const User: Model<UserProps> = model("User", UserSchema);
