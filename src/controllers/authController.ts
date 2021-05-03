@@ -20,7 +20,7 @@ class AuthController {
     try {
       const token = Jwt.succededLoginTokwt(user);
       response.cookie("userInfo", token, { httpOnly: true });
-      response.json({ msg: `User: ${email} logged in` });
+      return response.json({ msg: `User: ${email} logged in`, data: token });
     } catch (error) {}
   }
   static async createNewUser(

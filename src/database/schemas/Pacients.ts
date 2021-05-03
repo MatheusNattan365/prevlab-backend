@@ -1,9 +1,9 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface PacientProps extends Document {
-  fullName?: string;
+  fullName: string;
   age?: number;
-  birthDate?: Date;
+  bornDate?: Date;
   solicitante: string;
   convenios?: string[];
 }
@@ -11,19 +11,19 @@ export interface PacientProps extends Document {
 const PacientSchema = new Schema({
   fullName: {
     type: String,
-    default: "User",
+    required: true,
   },
   age: {
     type: Number,
   },
-  birthDate: {
+  bornDate: {
     type: Date,
   },
   solicitante: {
     type: String,
     required: true,
   },
-  convenios: {
+  convenio: {
     type: [String],
   },
 });

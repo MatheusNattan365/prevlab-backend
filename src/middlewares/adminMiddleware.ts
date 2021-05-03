@@ -5,11 +5,11 @@ export const adminMiddleware = (
   response: Response,
   next: NextFunction
 ): Response | void => {
-  const { userInfo } = request.cookies;
-  if (!userInfo) {
+  const { authorization } = request.headers;
+  if (!authorization) {
     return response.send("Your do not have permission!");
   }
-  const decoded = Jwt.chechekJWT(userInfo);
+  const decoded = Jwt.chechekJWT(authorization);
 
   if (!decoded[`_doc`].isAdmin) {
     return response.send("Your do not have permission!");

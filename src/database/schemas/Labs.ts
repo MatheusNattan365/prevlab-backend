@@ -3,7 +3,7 @@ import { Document, Model, model, Schema } from "mongoose";
 export interface LabProps extends Document {
   name: string;
   cnpj?: string;
-  phone?: string[];
+  phone?: string;
 }
 
 const LabSchema = new Schema({
@@ -15,7 +15,7 @@ const LabSchema = new Schema({
     type: String,
   },
   phone: {
-    type: [String],
+    type: String,
   },
 });
 

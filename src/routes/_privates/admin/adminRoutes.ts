@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { AdminController } from "../../../controllers/adminController";
 import { adminMiddleware } from "../../../middlewares/adminMiddleware";
-import { adminAppRoutes } from "./applicaiton";
+import { adminAppRoutes } from "./application";
 const adminRoutes = Router();
 
 adminRoutes.use(adminMiddleware);

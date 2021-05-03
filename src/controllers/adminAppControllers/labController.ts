@@ -6,12 +6,17 @@ export const AdminAppLabController = {
     const allLabs = await Lab.find();
     return response.json(allLabs);
   },
+  getLab: async (request: Request, response: Response): Promise<Response> => {
+    const { lab_id } = request.params;
+    const lab = await Lab.findById(lab_id);
+    return response.json(lab);
+  },
   createLab: async (
     request: Request,
     response: Response
   ): Promise<Response> => {
     const { name, cnpj, phone } = request.body;
-    if (!name || !cnpj) {
+    if (!name) {
       return response.send("Required fields are missing!");
     }
 

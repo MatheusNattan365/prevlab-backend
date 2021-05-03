@@ -13,11 +13,11 @@ db.once("open", () => console.log("Database connected!"));
 
 (function expressConfig() {
   dotenvConfig();
+  app.use(cookieParser());
+  app.use(cors());
   app.use(express.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use(cookieParser());
-  app.use(cors());
   app.use("/api", routes);
 })();
 

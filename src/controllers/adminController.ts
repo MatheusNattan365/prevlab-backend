@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../database/schemas/User";
-import { Bcrypt } from "../services/bcrypt";
+
 class AdminController {
   static async getAllUsers(
     request: Request,

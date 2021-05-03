@@ -17,9 +17,7 @@ export interface ExamProps extends Document {
 }
 
 const ExamSchema = new Schema({
-  pacient_id: {
-    type: String,
-  },
+  pacient_id: { type: String },
   collectDate: {
     type: Date,
   },

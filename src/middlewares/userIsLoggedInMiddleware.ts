@@ -5,12 +5,12 @@ export const userIsLoggedInMiddleware = (
   response: Response,
   next: NextFunction
 ): Response | NextFunction => {
-  const { userInfo } = request.cookies;
-  if (!userInfo) {
+  const { authorization } = request.headers;
+  if (!authorization) {
     return response.send("Your section expires, please relogin!");
   }
 
-  const decoded = Jwt.chechekJWT(userInfo);
+  const decoded = Jwt.chechekJWT(authorization);
 
   if (!decoded[`_doc`].email) {
     return response.send("Your section expires, please relogin!");
