@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.laboratoriesRoutes = void 0;
+const express_1 = require("express");
+const labController_1 = require("../../../../../controllers/adminAppControllers/labController");
+const laboratoriesRoutes = express_1.Router();
+exports.laboratoriesRoutes = laboratoriesRoutes;
+laboratoriesRoutes.get("/labs", labController_1.AdminAppLabController.getLabs);
+laboratoriesRoutes.get("/labs/:lab_id", labController_1.AdminAppLabController.getLab);
+laboratoriesRoutes.post("/newlab", labController_1.AdminAppLabController.createLab);
+laboratoriesRoutes.put("/:lab_id/updatelab", labController_1.AdminAppLabController.updateLab);
+laboratoriesRoutes.delete("/:lab_id/deletelab", labController_1.AdminAppLabController.deleteLab);

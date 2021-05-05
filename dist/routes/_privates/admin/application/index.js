@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.adminAppRoutes = void 0;
+const express_1 = require("express");
+const laboratories_1 = require("../application/laboratories");
+const patients_1 = require("../application/patients");
+const exams_1 = require("../application/exams");
+const users_1 = require("../application/users");
+const adminAppRoutes = express_1.Router();
+exports.adminAppRoutes = adminAppRoutes;
+adminAppRoutes.get("/", (request, response) => response.send("Admin application Routes"));
+adminAppRoutes.use("/laboratories", laboratories_1.laboratoriesRoutes);
+adminAppRoutes.use("/patients", patients_1.patientsRoutes);
+adminAppRoutes.use("/exams", exams_1.examsRoutes);
+adminAppRoutes.use("/users", users_1.usersRoutes);

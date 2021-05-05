@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userAppRoutes = void 0;
+const express_1 = require("express");
+const appController_1 = require("../../controllers/userAppControllers/appController");
+const userAppRoutes = express_1.Router();
+exports.userAppRoutes = userAppRoutes;
+userAppRoutes.get("/", (request, response) => response.send("User application Routes" + request.query.id));
+userAppRoutes.get("/alloweds", appController_1.UserAppController.getAllowedPatients);
+userAppRoutes.get("/exam", appController_1.UserAppController.getExam);

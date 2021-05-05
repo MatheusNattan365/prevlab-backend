@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.adminRoutes = void 0;
+const express_1 = require("express");
+const adminMiddleware_1 = require("../../../middlewares/adminMiddleware");
+const application_1 = require("./application");
+const adminRoutes = express_1.Router();
+exports.adminRoutes = adminRoutes;
+adminRoutes.use(adminMiddleware_1.adminMiddleware);
+adminRoutes.get("/", (request, response) => response.send("Admin Routes"));
+adminRoutes.use("/app", application_1.adminAppRoutes);

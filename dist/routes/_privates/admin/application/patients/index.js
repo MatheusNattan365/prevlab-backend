@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.patientsRoutes = void 0;
+const express_1 = require("express");
+const patientController_1 = require("../../../../../controllers/adminAppControllers/patientController");
+const patientsRoutes = express_1.Router();
+exports.patientsRoutes = patientsRoutes;
+patientsRoutes.get("/all", patientController_1.AdminAppPatientController.getPatients);
+patientsRoutes.get("/all/:patient_id", patientController_1.AdminAppPatientController.getPatient);
+patientsRoutes.post("/newpatient", patientController_1.AdminAppPatientController.createPatient);
+patientsRoutes.post("/allowblack", patientController_1.AdminAppPatientController.updatePatient);
+patientsRoutes.put("/:patient_id/updatepatient", patientController_1.AdminAppPatientController.updatePatient);
+patientsRoutes.delete("/:patient_id/deletepatient", patientController_1.AdminAppPatientController.deletePatient);
