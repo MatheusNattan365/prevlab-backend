@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Jwt } from "../services/jwt";
+import { middlewareResponseErr } from "../helpers/responseHelper";
 export const userIsLoggedInMiddleware = (
   request: Request,
   response: Response,
@@ -7,14 +8,20 @@ export const userIsLoggedInMiddleware = (
 ): Response | NextFunction => {
   const { authorization } = request.headers;
   if (!authorization) {
-    return response.send("Your section expires, please relogin!");
+    return middlewareResponseErr(
+      response,
+      "Your section expires, please relogin!"
+    );
   }
 
   const decoded = Jwt.chechekJWT(authorization);
 
   if (!decoded[`_doc`].email) {
-    return response.send("Your section expires, please relogin!");
+    return middlewareResponseErr(
+      response,
+      "Your section expires, please relogin!"
+    );
   }
-
+  response.locals.user = decoded[`_doc`];
   next();
 };

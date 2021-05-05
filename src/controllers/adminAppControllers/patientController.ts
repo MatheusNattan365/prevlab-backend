@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Pacient } from "../../database/schemas/Pacients";
+import { responseErr } from "../../helpers/responseHelper";
 
 export const AdminAppPatientController = {
   getPatients: async (
@@ -22,22 +23,22 @@ export const AdminAppPatientController = {
     response: Response
   ): Promise<Response> => {
     const { fullName, solicitante } = request.body;
-    console.log(request.body);
     if (!fullName || !solicitante) {
-      return response.send("Required fields are missing!");
+      return responseErr(response, "Required fields are missing!");
     }
 
     try {
       Pacient.create({ ...request.body }, (err: Error, done) => {
         if (err) {
-          return response.json({
-            msg: "Something goes wrong when the app tried to create a patient.",
-          });
+          return responseErr(
+            response,
+            "Something goes wrong when the app tried to create a patient."
+          );
         }
         return response.json({ msg: `Patient: ${fullName} was created!` });
       });
     } catch (error) {
-      console.log("Something goes wrong with patientCreator" + error);
+      responseErr(response, "Something goes wrong with patientCreator" + error);
     }
   },
   updatePatient: async (
@@ -46,7 +47,7 @@ export const AdminAppPatientController = {
   ): Promise<Response> => {
     const { patient_id } = request.params;
     if (!request.body) {
-      return response.send("Required fields are missing!");
+      return responseErr(response, "Required fields are missing!");
     }
 
     try {
@@ -55,16 +56,16 @@ export const AdminAppPatientController = {
         { ...request.body },
         (err: Error, done) => {
           if (err) {
-            return response.json({
-              msg:
-                "Something goes wrong when the app tried to update a Patient.",
-            });
+            return responseErr(
+              response,
+              "Something goes wrong when the app tried to update a Patient."
+            );
           }
           return response.json({ msg: `The Patient was updated!` });
         }
       );
     } catch (error) {
-      console.log("Something goes wrong with patientUpdate" + error);
+      responseErr(response, "Something goes wrong with patientUpdate" + error);
     }
   },
   deletePatient: async (
@@ -75,14 +76,15 @@ export const AdminAppPatientController = {
     try {
       Pacient.findByIdAndDelete(patient_id, {}, (err: Error, done) => {
         if (err) {
-          return response.json({
-            msg: "Something goes wrong when the app tried to delete a patient.",
-          });
+          return responseErr(
+            response,
+            "Something goes wrong when the app tried to delete a patient."
+          );
         }
         return response.json({ msg: `The patient was deleted!` });
       });
     } catch (error) {
-      console.log("Something goes wrong with patientUpdate" + error);
+      responseErr(response, "Something goes wrong with patientUpdate" + error);
     }
   },
 };

@@ -3,6 +3,6 @@ import { AuthController } from "../../controllers/authController";
 const authRoutes = Router();
 
 authRoutes.post("/login", AuthController.login);
-authRoutes.post("/createnewuser", AuthController.createNewUser);
+authRoutes.post("/adminlogin", AuthController.adminLogin);
 
 export { authRoutes };

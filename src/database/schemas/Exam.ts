@@ -1,7 +1,7 @@
 import { Document, Model, model, Schema } from "mongoose";
 
 export interface ExamProps extends Document {
-  pacient_id: string;
+  patient_id: string;
   collectDate: Date;
   avaliacaoDaAmostra?: string;
   celulaNaoEpiteliais?: string;
@@ -11,13 +11,14 @@ export interface ExamProps extends Document {
   celulasEndocervicais?: string;
   celulasEndometriais?: string;
   floraVaginal?: string;
+  agentesEspecificos?: string;
   citolise?: string;
   conclusao: string;
   observacoes?: string;
 }
 
 const ExamSchema = new Schema({
-  pacient_id: { type: String },
+  patient_id: { type: String },
   collectDate: {
     type: Date,
   },
@@ -43,6 +44,9 @@ const ExamSchema = new Schema({
     type: String,
   },
   floraVaginal: {
+    type: String,
+  },
+  agentesEspecificos: {
     type: String,
   },
   citolise: {

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Jwt } from "../services/jwt";
+import { middlewareResponseErr } from "../helpers/responseHelper";
 export const adminMiddleware = (
   request: Request,
   response: Response,
@@ -7,12 +8,12 @@ export const adminMiddleware = (
 ): Response | void => {
   const { authorization } = request.headers;
   if (!authorization) {
-    return response.send("Your do not have permission!");
+    return middlewareResponseErr(response, "Your do not have permission!");
   }
   const decoded = Jwt.chechekJWT(authorization);
 
   if (!decoded[`_doc`].isAdmin) {
-    return response.send("Your do not have permission!");
+    return middlewareResponseErr(response, "Your do not have permission!");
   }
 
   next();

@@ -5,6 +5,7 @@ export interface PacientProps extends Document {
   age?: number;
   bornDate?: Date;
   solicitante: string;
+  allowedDate?: Date;
   convenios?: string[];
 }
 
@@ -22,6 +23,10 @@ const PacientSchema = new Schema({
   solicitante: {
     type: String,
     required: true,
+  },
+
+  allowedDate: {
+    type: Date,
   },
   convenio: {
     type: [String],

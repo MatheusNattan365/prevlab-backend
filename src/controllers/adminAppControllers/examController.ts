@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Exam } from "../../database/schemas/Exam";
+import { responseErr } from "../../helpers/responseHelper";
 
 export const AdminAppExamController = {
   getExams: async (request: Request, response: Response): Promise<Response> => {
@@ -8,29 +9,31 @@ export const AdminAppExamController = {
   },
   getExam: async (request: Request, response: Response): Promise<Response> => {
     const { exam_id } = request.params;
-    const exam = await Exam.findById(exam_id);
+
+    const exam = await Exam.findOne({ patient_id: exam_id });
     return response.json(exam);
   },
   createExam: async (
     request: Request,
     response: Response
   ): Promise<Response> => {
-    const { pacient_id, collectDate, conclusao } = request.body;
-    if (!pacient_id || !collectDate || !conclusao) {
-      return response.send("Required fields are missing!");
+    const { patient_id, collectDate, conclusao } = request.body;
+    if (!patient_id || !collectDate || !conclusao) {
+      return responseErr(response, "Required fields are missing!");
     }
 
     try {
       Exam.create({ ...request.body }, (err: Error, done) => {
         if (err) {
-          return response.json({
-            msg: "Something goes wrong when the app tried to create a exam.",
-          });
+          return responseErr(
+            response,
+            "Something goes wrong when the app tried to create a exam."
+          );
         }
         return response.json({ msg: `An Exam was created!` });
       });
     } catch (error) {
-      console.log("Something goes wrong with examCreator" + error);
+      responseErr(response, "Something goes wrong with examCreator" + error);
     }
   },
   updateExam: async (
@@ -38,25 +41,28 @@ export const AdminAppExamController = {
     response: Response
   ): Promise<Response> => {
     const { exam_id } = request.params;
+    console.log(exam_id);
     if (!request.body) {
-      return response.send("Required fields are missing!");
+      return responseErr(response, "Required fields are missing!");
     }
 
     try {
       Exam.findByIdAndUpdate(
         exam_id,
         { ...request.body },
+
         (err: Error, done) => {
           if (err) {
-            return response.json({
-              msg: "Something goes wrong when the app tried to update a Exam.",
-            });
+            return responseErr(
+              response,
+              "Something goes wrong when the app tried to update a Exam."
+            );
           }
           return response.json({ msg: `The Exam was updated!` });
         }
       );
     } catch (error) {
-      console.log("Something goes wrong with ExamUpdate" + error);
+      responseErr(response, "Something goes wrong with ExamUpdate" + error);
     }
   },
   deleteExam: async (request: Request, response: Response): Promise<void> => {
@@ -64,14 +70,15 @@ export const AdminAppExamController = {
     try {
       Exam.findByIdAndDelete(exam_id, {}, (err: Error, done) => {
         if (err) {
-          return response.json({
-            msg: "Something goes wrong when the app tried to delete a exam.",
-          });
+          return responseErr(
+            response,
+            "Something goes wrong when the app tried to delete a exam."
+          );
         }
         return response.json({ msg: `The exam was deleted!` });
       });
     } catch (error) {
-      console.log("Something goes wrong with examDeleter" + error);
+      responseErr(response, "Something goes wrong with examDeleter" + error);
     }
   },
 };
