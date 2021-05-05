@@ -6,7 +6,7 @@ import { db } from "./database";
 import { routes } from "./routes";
 import { config as dotenvConfig } from "dotenv";
 const app = express();
-const PORT = process.env.NODE_ENV_PORT || 3000;
+const PORT = process.env.PORT || 3333;
 
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => console.log("Database connected!"));
