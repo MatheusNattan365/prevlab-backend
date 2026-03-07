@@ -27,10 +27,11 @@ class AuthController {
     response: Response
   ): Promise<Response> {
     const { email, password } = request.body;
+    console.log(email, password);
     if (!email || !password) {
       return responseErr(response, "Campos obrigatórios");
     }
-    const user = await Lab.findOne({ email });
+    const user = await Lab.findOne({ email, isAdmin: true });
 
     const result = await Bcrypt.commparePassword(password, user.password);
     if (!user || !result) {

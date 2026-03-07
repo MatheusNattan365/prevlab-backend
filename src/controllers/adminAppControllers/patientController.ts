@@ -7,8 +7,41 @@ export const AdminAppPatientController = {
     request: Request,
     response: Response
   ): Promise<Response> => {
-    const allPatients = await Pacient.find();
-    return response.json(allPatients);
+    const page = Math.max(1, parseInt(request.query.page as string) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(request.query.limit as string) || 30));
+    const search = (request.query.search as string)?.trim();
+    const sortBy = (request.query.sortBy as string) || "updatedAt";
+    const sortOrder = (request.query.sortOrder as string) === "asc" ? 1 : -1;
+
+    const query: Record<string, unknown> = {};
+    if (search) {
+      query.$or = [
+        { fullName: { $regex: search, $options: "i" } },
+        { solicitante: { $regex: search, $options: "i" } },
+        { convenio: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const sortObj: Record<string, 1 | -1> = { [sortBy]: sortOrder };
+
+    const [patients, totalCount] = await Promise.all([
+      Pacient.find(query).sort(sortObj).skip((page - 1) * limit).limit(limit).lean(),
+      Pacient.countDocuments(query),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit) || 1;
+
+    return response.json({
+      data: patients,
+      pagination: {
+        page,
+        limit,
+        totalCount,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    });
   },
   getPatient: async (
     request: Request,

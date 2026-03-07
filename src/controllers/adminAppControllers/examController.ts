@@ -9,9 +9,14 @@ export const AdminAppExamController = {
   },
   getExam: async (request: Request, response: Response): Promise<Response> => {
     const { exam_id } = request.params;
-
-    const exam = await Exam.findOne({ patient_id: exam_id });
+    const exam = await Exam.findOne({ _id: exam_id });
     return response.json(exam);
+  },
+
+  getExamsByPatient: async (request: Request, response: Response): Promise<Response> => {
+    const { patient_id } = request.params;
+    const exams = await Exam.find({ patient_id }).sort({ collectDate: -1 }).lean();
+    return response.json(exams);
   },
   createExam: async (
     request: Request,

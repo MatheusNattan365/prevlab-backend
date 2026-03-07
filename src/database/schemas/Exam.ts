@@ -15,6 +15,8 @@ export interface ExamProps extends Document {
   citolise?: string;
   conclusao: string;
   observacoes?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const ExamSchema = new Schema({
@@ -58,6 +60,6 @@ const ExamSchema = new Schema({
   observacoes: {
     type: String,
   },
-});
+}, { timestamps: true });
 
 export const Exam: Model<ExamProps> = model("Exam", ExamSchema);

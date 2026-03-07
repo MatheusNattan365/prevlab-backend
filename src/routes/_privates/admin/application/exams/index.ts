@@ -3,6 +3,7 @@ import { AdminAppExamController } from "../../../../../controllers/adminAppContr
 const examsRoutes = Router();
 
 examsRoutes.get("/all", AdminAppExamController.getExams);
+examsRoutes.get("/patient/:patient_id", AdminAppExamController.getExamsByPatient);
 examsRoutes.get("/all/:exam_id", AdminAppExamController.getExam);
 examsRoutes.post("/newexam", AdminAppExamController.createExam);
 examsRoutes.put("/:exam_id/updateexam", AdminAppExamController.updateExam);

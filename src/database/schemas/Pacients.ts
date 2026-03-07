@@ -7,6 +7,8 @@ export interface PacientProps extends Document {
   solicitante: string;
   allowedDate?: Date;
   convenios?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const PacientSchema = new Schema({
@@ -31,6 +33,6 @@ const PacientSchema = new Schema({
   convenio: {
     type: [String],
   },
-});
+}, { timestamps: true });
 
 export const Pacient: Model<PacientProps> = model("Pacient", PacientSchema);
