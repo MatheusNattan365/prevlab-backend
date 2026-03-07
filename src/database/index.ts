@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 require("dotenv").config();
 
-const uri = process.env.MONGODB_URL
-  .replace("<MONGO_USER>", process.env.MONGO_USER)
-  .replace("<MONGO_PASS>", process.env.MONGO_PASS);
-if (!uri) {
-  throw new Error("MONGODB_URL is not defined in .env");
+const mongoUser = process.env.MONGO_USER ?? "";
+const mongoPass = process.env.MONGO_PASS ?? "";
+const rawUrl = process.env.MONGODB_URL ?? "";
+const uri = rawUrl
+  .replace(/<MONGO_USER>|MONGO_USER/g, encodeURIComponent(mongoUser))
+  .replace(/<MONGO_PASS>|MONGO_PASS/g, encodeURIComponent(mongoPass));
+if (!rawUrl || !mongoUser || !mongoPass) {
+  throw new Error(
+    "MongoDB config missing: set MONGODB_URL, MONGO_USER and MONGO_PASS in environment"
+  );
 }
 mongoose.connect(uri, {
   dbName: process.env.DB_NAME,
