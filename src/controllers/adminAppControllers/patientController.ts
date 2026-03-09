@@ -1,3 +1,4 @@
+import { randomBytes } from "crypto";
 import { Request, Response } from "express";
 import { Pacient } from "../../database/schemas/Pacients";
 import { responseErr } from "../../helpers/responseHelper";
@@ -56,21 +57,50 @@ export const AdminAppPatientController = {
     response: Response
   ): Promise<Response> => {
     const { fullName, solicitante } = request.body;
+
+    console.log("[Cadastro Paciente] Início da requisição", {
+      fullName: fullName ?? "(não informado)",
+      solicitante: solicitante ?? "(não informado)",
+    });
+
     if (!fullName || !solicitante) {
+      console.warn("[Cadastro Paciente] Campos obrigatórios ausentes", {
+        fullName: !!fullName,
+        solicitante: !!solicitante,
+      });
       return responseErr(response, "Required fields are missing!");
     }
 
     try {
-      Pacient.create({ ...request.body }, (err: Error, done) => {
+      const publicToken = randomBytes(16).toString("hex");
+      const patientData = { ...request.body, publicToken };
+      Pacient.create(patientData, (err: Error, done) => {
         if (err) {
+          console.error("[Cadastro Paciente] Erro ao criar paciente", {
+            fullName,
+            solicitante,
+            error: err.message,
+          });
           return responseErr(
             response,
             "Something goes wrong when the app tried to create a patient."
           );
         }
+        const patientId = done?._id?.toString?.() ?? "(id não disponível)";
+        console.log("[Cadastro Paciente] Paciente criado com sucesso", {
+          patientId,
+          publicToken,
+          fullName,
+          solicitante,
+        });
         return response.json({ msg: `Patient: ${fullName} was created!` });
       });
     } catch (error) {
+      console.error("[Cadastro Paciente] Exceção ao criar paciente", {
+        fullName,
+        solicitante,
+        error: error instanceof Error ? error.message : String(error),
+      });
       responseErr(response, "Something goes wrong with patientCreator" + error);
     }
   },
